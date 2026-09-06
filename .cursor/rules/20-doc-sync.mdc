@@ -1,0 +1,69 @@
+---
+description: Policy for the monthly CTI documentation sync — minimal edits, material change only, revision entries earned not manufactured. Read when running or modifying the cti-doc-sync skill.
+alwaysApply: false
+---
+
+# Documentation sync policy
+
+The procedure lives in the `cti-doc-sync` skill. These are the standing
+judgments behind it, which the procedure alone does not convey.
+
+## Make as few edits as possible
+
+The measure of a good run is not how much changed. A run that correctly
+concludes nothing material happened and changes nothing is a successful run.
+
+## Material versus routine
+
+Routine, and not a documentation change on its own:
+
+- One more weekly report in an established series
+- Another bulletin in an established category
+- A hunt package following the established identifier scheme
+- A file touched, moved or renamed with no change in what it is
+
+Material, and worth a documentation change:
+
+- A new artifact type or deliverable class
+- A product removed or deprecated
+- A changed cadence
+- A new platform, integration or dependency, for example a change in which
+  platform hunts are authored against
+- A new automated pipeline or new tooling under `_tools` or `_skill_patches`
+- A change in terminology or product positioning, for example the bulletin
+  category taxonomy or the hunt identifier scheme
+- A documentation statement that has become false
+
+## Revision entries are earned
+
+Append a revision row only when something substantive changed. A branding pass
+on its own is not program history. Never edit a document solely so that a
+revision entry can be written.
+
+## Preservation
+
+Preserve existing structure, formatting, tone and level of detail unless a
+structural change is genuinely needed. Do not remove historical or contextual
+information just because newer material exists. Do not rewrite unchanged
+material.
+
+## Word heading styles carry numbering
+
+When inserting content into an existing document, clone an existing paragraph of
+the target style and replace its text. Do not create a paragraph from the style
+name: Word's heading styles in these documents carry list numbering, and a
+paragraph created that way picks up a stray automatic number.
+
+## The deck evolves, it does not accumulate
+
+`CTI_AI_Strategy_Evolving.pptx` changes only when evidence supports a change in
+strategy. Keep the GeneLabs layouts, master, palette and slide design intact and
+reuse existing layouts rather than inventing new visual treatments. Every
+strategic change traces to new evidence, a changed assumption or a development in
+the portfolio, and that evidence is named in the run summary.
+
+## Unattended runs
+
+When the scheduler starts the run, nobody is watching. Do not ask questions.
+Where a judgment call is needed, make the conservative choice, apply it, and flag
+it under items requiring human review in the run summary.

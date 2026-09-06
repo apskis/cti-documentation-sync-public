@@ -1,0 +1,18 @@
+{
+  "_comment": [
+    "Example for ~/.claude/settings.json, an alternative to environment",
+    "variables. Claude Code's own wizard writes this file: run `claude`, pick",
+    "3rd-party platform, then Amazon Bedrock, or run /setup-bedrock in a",
+    "session. Prefer the wizard; this file is here so you can see what it",
+    "produces and diff against it.",
+    "Do not put AWS_BEARER_TOKEN_BEDROCK in a file you might commit."
+  ],
+  "env": {
+    "CLAUDE_CODE_USE_BEDROCK": "1",
+    "AWS_REGION": "us-west-2",
+    "AWS_PROFILE": "genelabs-bedrock",
+    "ANTHROPIC_MODEL": "us.anthropic.claude-opus-5",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "us.anthropic.claude-haiku-4-5-20251001-v1:0"
+  },
+  "awsAuthRefresh": "aws sso login --profile genelabs-bedrock"
+}

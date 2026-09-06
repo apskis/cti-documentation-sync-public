@@ -1,0 +1,30 @@
+{
+  "deliverables": "C:/Users/<user>/GeneLabs LLC/Security Operations Center - CTI/CTI Deliverables",
+  "documentation": "C:/Users/<user>/GeneLabs LLC/Security Operations Center - CTI/CTI Documentation",
+  "originator": "April Parker",
+  "copyright_line": "© 2026 GeneLabs LLC  |  Proprietary and Confidential — For Internal Use Only",
+  "marking": "CTI Program Documentation",
+  "documents": {
+    "cti_plan": {
+      "file": "Strategy_and_Plan/CTI_Plan.docx",
+      "doc_id_prefix": "CTI-PLAN",
+      "history_table": "Release History",
+      "version_format": "two-digit",
+      "date_format": "%Y.%m.%d"
+    },
+    "threat_hunting_plan": {
+      "file": "Strategy_and_Plan/Threat Hunting Plan.docx",
+      "doc_id_prefix": "CTI-THP",
+      "history_table": "12. Revision History",
+      "version_format": "decimal",
+      "date_format": "%Y-%m-%d"
+    },
+    "ai_strategy_deck": {
+      "file": "Strategy_and_Plan/CTI_AI_Strategy_Evolving.pptx"
+    }
+  },
+  "protected": [
+    "Strategy_and_Plan/CTI Strategy.pptx",
+    "Strategy_and_Plan/CTI Strategy-Reference for April.pptx"
+  ]
+}

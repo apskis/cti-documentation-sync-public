@@ -1,0 +1,60 @@
+---
+description: Where the CTI folders live and the safety rules for editing documents in place. Read before touching any file under the CTI Deliverables or CTI Documentation trees.
+alwaysApply: true
+---
+
+# Paths and safety
+
+## Never hard code a path
+
+Folder locations live in `cti.config.json` in the repository root. Read them
+from there, or from `scripts/cti_paths.py`, which resolves them and expands
+environment variables.
+
+```python
+import sys; sys.path.insert(0, "scripts")
+from cti_paths import deliverables_dir, documentation_dir, strategy_dir, backups_dir
+```
+
+Two folders, both on April's machine and normally synced through OneDrive:
+
+- `deliverables` — the CTI Deliverables tree. The source of truth for what the
+  portfolio actually contains.
+- `documentation` — the CTI Documentation tree. The maintained representations.
+
+## Edit in place, with backups
+
+April chose edit in place. That only works because every edit is preceded by a
+backup. Before you modify any document under the documentation tree:
+
+```
+python scripts/backup_doc.py "<full path>" --reason <short-reason>
+```
+
+Never skip it. Never edit a document you have not backed up in this run.
+
+## OneDrive is a shared surface
+
+These folders sync. April may have a document open in Word while you work.
+
+- Check the modification time before you write, and again immediately before you
+  save. If it moved, she edited it: reload her version and reapply your changes
+  on top rather than overwriting her work.
+- A lock file named `~$<document>.docx` beside a document means Word has it
+  open. Do not write to that document; report it instead.
+- Never force a write past either of those signals.
+
+## Verify visually
+
+Most defects in these documents are visual, not textual. After a branding pass:
+
+```
+python scripts/render_pdf.py "<path to the document>"
+```
+
+Open the PDF and look at it before you accept the result.
+
+## Scope
+
+Work only inside the two configured folders and this repository. Do not reach
+elsewhere on the filesystem.

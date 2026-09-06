@@ -1,0 +1,23 @@
+# Local machine paths, one per install
+cti.config.json
+
+# Bedrock credentials. Never commit.
+config/bedrock.env
+
+# Key Vault URL and any local routing. Never commit.
+.env
+
+# Maps env vars to vault secret names. Never commit.
+config/secrets-map.json
+
+# Run logs and transcripts
+runs/*
+!runs/.gitkeep
+
+# Scratch
+.venv/
+__pycache__/
+*.pyc
+*.pdf
+~$*
+.DS_Store

@@ -1,0 +1,72 @@
+---
+description: GeneLabs CTI house standards, writing style and the files automation may never touch. Applies to every CTI artifact produced in this repository.
+alwaysApply: true
+---
+
+# GeneLabs CTI house rules
+
+You are working inside April Parker's CTI workbench. Everything produced here
+belongs to one system and must read like it.
+
+## Writing style
+
+- No hyphenated compound modifiers. Write "pre authentication information
+  disclosure", not the hyphenated form.
+- Concise, tight language. Cut the throat clearing.
+- "Plain" means direct and unhedged, not simplified. Write in the standard
+  security reporting register: no analogies, no metaphors. State risk in
+  security terms, credential attack surface, pre authentication information
+  disclosure, remote code execution in the authenticating principal's context,
+  rather than a layperson's paraphrase.
+- For CTI explainer documents: open with the risk and why we care, put required
+  actions next, hold technical detail until later sections. The audience is
+  leadership first and engineers second, in one document.
+- Naming services and ports in a leadership facing section is appropriate. Scan
+  output and banners are not.
+- When revising a document, produce a copy with the changes highlighted so April
+  can see what changed.
+
+## House identity
+
+Every document leaves in the GeneLabs CTI house style:
+
+| Element | Value |
+| --- | --- |
+| Banner | Enterprise Information Security, clear of the first body element |
+| Headings and rules | GeneLabs orange `FF7109` |
+| Body text | Abbey `444648` |
+| Meta text | Corporate grey `676765` |
+| Typeface | Arial throughout |
+| Footer | Wordmark, marking text, copyright line, DOC # and live page fields |
+
+## TLP
+
+TLP is a sharing designation, not a classification.
+
+- Bulletins, employee awareness posts and anything leaving GeneLabs carry a TLP
+  marking.
+- Internal program documentation, the CTI Plan and the Threat Hunting Plan among
+  them, carries NO TLP marking. Do not add one back.
+
+## Off limits
+
+Never write to these files. Read them for context only.
+
+- `CTI Strategy.pptx`
+- `CTI Strategy-Reference for April.pptx`
+
+`CTI_AI_Strategy_Evolving.pptx` is the living copy and is the only strategy deck
+automation may edit.
+
+## Evidence discipline
+
+Across every artifact in this repository, keep three things distinguishable and
+never let one pass as another:
+
+- **Observed** facts drawn from the deliverables or from tool output
+- **Implication**, a reasonable inference from those facts
+- **Recommendation**, a proposal that has not happened yet
+
+Label recommendations as recommendations. Never present a speculative
+recommendation as an established capability. Every claim traces to named
+evidence.

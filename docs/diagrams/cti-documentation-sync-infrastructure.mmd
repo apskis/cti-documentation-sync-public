@@ -1,0 +1,85 @@
+---
+title: CTI Documentation Sync — what reaches the files
+---
+flowchart LR
+
+    subgraph BEFORE["Before · reachability failed here"]
+        direction TB
+        SCHED_OLD["Claude scheduled task<br/>Anthropic cloud"]
+        BRIDGE(["Claude desktop bridge"])
+        XGAP["✕ absent 2026-09-01<br/><i>run fired, reached nothing</i>"]
+        SCHED_OLD --> BRIDGE --> XGAP
+    end
+
+    subgraph NOW["Now · one machine, no gap to cross"]
+        direction LR
+
+        subgraph TRIG["Trigger"]
+            direction TB
+            TS["Task Scheduler / cron<br/>days 1, 2, 3"]
+            GUARD{{"date_guard.py<br/>first weekday?"}}
+            STOP(["exit 0<br/>change nothing"])
+            TS --> GUARD
+            GUARD -- "not the first weekday" --> STOP
+        end
+
+        subgraph AGENT["Agent · only Claude Code reaches Bedrock"]
+            direction TB
+            CC["Claude Code<br/><code>claude</code><br/>CLAUDE_CODE_USE_BEDROCK=1"]
+            CU["Cursor agent<br/><i>chat only on a BYOK key</i>"]
+        end
+
+        subgraph REPO["Repository · what the agent is told"]
+            direction TB
+            SKILLS[".claude/skills · .cursor/skills<br/>19 skills, mirrored"]
+            RULES[".cursor/rules<br/>house · paths · policy"]
+            CTX["context/ · docs/MODELS.md<br/>standing context · preferences · model roles"]
+            CFG["cti.config.json · config/bedrock.env<br/>folder paths · region · credential · pin"]
+            PY["scripts/<br/>doctor · bedrock doctor · date guard<br/>backup · survey · render · notify"]
+        end
+
+        subgraph CONTENT["OneDrive · the content"]
+            direction TB
+            DELIV[("CTI Deliverables<br/><b>source of truth</b>")]
+            PLANS["Strategy_and_Plan<br/>CTI_Plan · Threat Hunting Plan<br/>CTI_AI_Strategy_Evolving"]
+            DS["_doc_sync/<br/>portfolio_state.md<br/>backups/ · runs/"]
+            PROT["CTI Strategy.pptx + reference<br/><b>never written</b>"]
+        end
+
+        OUT["Toast · webhook · run report"]
+    end
+
+    subgraph AWS["GeneLabs's AWS account · where the thinking happens"]
+        direction TB
+        PROF["Pinned inference profile<br/><code>us.anthropic.claude-opus-5</code><br/><i>an alias is not a pin</i>"]
+        BR[("Amazon Bedrock<br/>CloudTrail · Guardrails · AWS billing<br/><b>no WebSearch</b>")]
+        PROF --> BR
+    end
+
+    GUARD == "first weekday" ==> AGENT
+    REPO --> AGENT
+    AGENT -- "reads" --> DELIV
+    AGENT -- "baseline, then rewrite" --> DS
+    AGENT == "backup, edit, restyle" ==> PLANS
+    AGENT -. "context only" .- PROT
+    AGENT --> OUT
+    CC == "every model call" ==> PROF
+
+    XGAP x-. "the path that broke" .-x CONTENT
+
+    classDef gone fill:#F4F4F4,stroke:#C9C9C7,color:#9A9A98,stroke-dasharray:5 4
+    classDef live fill:#FFF3E8,stroke:#FF7109,stroke-width:2px,color:#444648
+    classDef data fill:#FFFFFF,stroke:#676765,color:#444648
+    classDef protect fill:#FFFFFF,stroke:#C9C9C7,color:#676765,stroke-dasharray:4 3
+    classDef quiet fill:#F4F4F4,stroke:#676765,color:#676765
+
+    class SCHED_OLD,BRIDGE gone
+    class XGAP gone
+    class CC,TS,GUARD live
+    class CU gone
+    class PROF live
+    class BR live
+    class SKILLS,RULES,CTX,CFG,PY,DELIV,DS,OUT data
+    class PLANS live
+    class PROT protect
+    class STOP quiet

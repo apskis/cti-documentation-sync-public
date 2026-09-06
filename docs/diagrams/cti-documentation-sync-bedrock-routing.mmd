@@ -1,0 +1,43 @@
+---
+title: CTI Documentation Sync on Bedrock — where a request goes
+---
+flowchart TB
+
+    SKILL["A skill runs<br/><code>/cti-doc-sync</code>"] --> WHICH{{"Which agent<br/>drives the loop?"}}
+
+    WHICH -- "Claude Code<br/><b>supported</b>" --> CC["<code>claude</code><br/>CLAUDE_CODE_USE_BEDROCK=1"]
+    WHICH -- "Cursor agent<br/><b>not reliable on BYOK</b>" --> CU["Cursor agent mode"]
+
+    CC --> CRED{{"Credential form"}}
+    CRED -- "bearer token" --> C1["AWS_BEARER_TOKEN_BEDROCK"]
+    CRED -- "key pair" --> C2["AWS_ACCESS_KEY_ID<br/>AWS_SECRET_ACCESS_KEY"]
+    CRED -- "SSO / profile" --> C3["AWS_PROFILE<br/><i>aws sso login</i>"]
+
+    C1 --> SIG["SigV4 signed request"]
+    C2 --> SIG
+    C3 --> SIG
+
+    SIG --> PROF["Inference profile<br/><code>us.anthropic.claude-opus-5</code><br/><i>pinned, never an alias</i>"]
+    PROF --> BR[("Amazon Bedrock<br/>GeneLabs's AWS account<br/><b>CloudTrail · Guardrails · AWS billing</b>")]
+    BR --> MODEL["Claude responds<br/>tool loop continues"]
+
+    CU --> CUKEY["BYOK key set in the Cursor UI"]
+    CUKEY --> CUWALL["Cursor: custom keys serve chat models.<br/>Agent mode is supported only on<br/>official provider routing.<br/><b>The tool loop these skills need<br/>is not covered.</b>"]
+
+    MODEL --> WS{{"Does this skill<br/>need the open web?"}}
+    WS -- "no · doc sync, hunts, exposure" --> FINE(["Runs unchanged on Bedrock"])
+    WS -- "yes · bulletins, CVE briefs" --> GAP["WebSearch is unavailable on Bedrock.<br/>Paste sources in, or keep a second<br/>profile on direct Anthropic access."]
+
+    classDef good fill:#FFF3E8,stroke:#FF7109,stroke-width:2px,color:#444648
+    classDef step fill:#FFFFFF,stroke:#676765,color:#444648
+    classDef blocked fill:#F4F4F4,stroke:#C9C9C7,color:#9A9A98,stroke-dasharray:5 4
+    classDef gate fill:#FFF3E8,stroke:#FF7109,color:#444648
+    classDef caution fill:#FFFFFF,stroke:#FF7109,color:#444648,stroke-dasharray:4 3
+
+    class WHICH,CRED,WS gate
+    class CC,SIG,PROF,MODEL good
+    class C1,C2,C3,SKILL step
+    class BR good
+    class CU,CUKEY,CUWALL blocked
+    class GAP caution
+    class FINE step
